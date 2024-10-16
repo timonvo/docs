@@ -98,10 +98,11 @@ Here is a modified version of the `AuthButtonComponent` component above that use
 ```javascript
 import { Component, Inject } from '@angular/core';
 import { AuthService } from '@auth0/auth0-angular';
-import { DOCUMENT } from '@angular/common';
+import { AsyncPipe, DOCUMENT, NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-auth-button',
+  imports: [AsyncPipe, NgIf],
   template: `
     <ng-container *ngIf="auth.isAuthenticated$ | async; else loggedOut">
       <button (click)="auth.logout({ logoutParams: { returnTo: document.location.origin } })">
@@ -137,9 +138,11 @@ The Auth0 Angular SDK helps you retrieve the [profile information](/users/concep
 ```javascript
 import { Component } from '@angular/core';
 import { AuthService } from '@auth0/auth0-angular';
+import { AsyncPipe, NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-user-profile',
+  imports: [AsyncPipe, NgIf],
   template: `
     <ul *ngIf="auth.user$ | async as user">
       <li>{{ user.name }}</li>
